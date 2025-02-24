@@ -11,6 +11,7 @@ export class AuthController {
 
             res.send('usuario  creado correctamente')
             
+            
         } catch (error) {
 
             console.log(error)
