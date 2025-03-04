@@ -1,16 +1,49 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Table, Column, Model, DataType, Default, Scopes } from 'sequelize-typescript';
 
-@Entity()
-export class User {
-    @PrimaryGeneratedColumn()
-    id!: number
+// 🔄 Define un Scope para excluir ciertos campos
+@Scopes(() => ({
+  eliminarPassword: {
+    attributes: { exclude: ['password', 'token', 'confirmado', 'createdAt', 'updatedAt'] }
+  }
+}))
 
-    @Column()
-    firstName!: string
+// 🏷️ Define la tabla y configura el modelo
+@Table({
+  tableName: 'usuarios',
+  timestamps: true,  // Para createdAt y updatedAt automáticamente
+})
+class User extends Model {
+  
+  @Column({
+    type: DataType.STRING,
+    allowNull: false
+  })
+  declare name: string;
 
-    @Column()
-    lastName!: string
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    unique: true  // Para evitar correos duplicados
+  })
+  declare email: string;
 
-    @Column()
-    age!: number
+  @Column({
+    type: DataType.STRING,
+    allowNull: false
+  })
+  declare password: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true  // Puede ser null si aún no se genera el token
+  })
+  declare token?: string;
+
+  @Default(false)
+  @Column({
+    type: DataType.BOOLEAN
+  })
+  declare confirmado: boolean;
 }
+
+export default User;

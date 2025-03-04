@@ -1,17 +1,23 @@
-import { DataSource } from "typeorm";
-import { User } from "./models/User";
-import dotenv from 'dotenv'
-
+import { Sequelize}  from "sequelize-typescript";
+import dotenv from 'dotenv';
 dotenv.config({path:'.env'})
-export const UdeaDataSource = new DataSource({
-    type: "mysql",
-    host: process.env.DB_HOST,
-    port: +process.env.DB_PORT!,
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DATABASE,
-    entities: [
-        User
-    ],
-    // synchronize: true,
-  });
+const db = new Sequelize(process.env.DATABASE!, process.env.DB_USERNAME!, process.env.DB_PASSWORD ?? '',{
+    host: process.env.BD_HOST,
+    port:3306,
+    dialect:'mysql', 
+    define:{
+        timestamps:true
+    },
+    pool:{
+       max:5,//maximo de conexiones
+       min:0,//minimo de conexxion
+       acquire:30000,//tiempo antes de marcar un error 
+       idle:10000// tiempo que debe de transmitir  para finalizar una conexion a la bd para liberar espacio o recursos
+    },
+    // operatorsAliases:false// los aliases era algo que existia en versiones viejas de sequilize y no aseguramos de que no lo use
+
+    models: [__dirname + '/../mysql/models/**'],//es para que busque los modelos en la carpeta models
+    logging: false//es para que no muestre los querys en consola
+});
+
+export default db;
