@@ -23,6 +23,7 @@ router.post('/CreateBook',
     
     BookController.CreateBook)
 
+    router.get('/GetBooks', BookController.GetBooks)
 
 
        

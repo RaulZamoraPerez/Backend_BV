@@ -82,7 +82,7 @@ export class AuthController {
           
       }
 
-   static forgotPassword = async (req: Request, res: Response)=>{
+   static forgotPassword = async (req: Request, res: Response)=>{// para cambiar el password
          try {
                    //validarr passwor
                            

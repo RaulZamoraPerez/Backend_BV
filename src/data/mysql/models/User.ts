@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, Default, Scopes } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, Default, Scopes, PrimaryKey } from 'sequelize-typescript';
 
 // 🔄 Define un Scope para excluir ciertos campos
 @Scopes(() => ({
@@ -13,6 +13,7 @@ import { Table, Column, Model, DataType, Default, Scopes } from 'sequelize-types
   timestamps: true,  // Para createdAt y updatedAt automáticamente
 })
 class User extends Model {
+ 
   
   @Column({
     type: DataType.STRING,

@@ -8,31 +8,54 @@ import bcrypt from 'bcrypt';
 export class UserController {
 
     static getUserById = async(req: Request, res: Response)=>{
-      
-        // const project = new Project(req.body)
+          
+        const {id} = req.params
         try {
-            // await project.save()
-            // await Project.create(req.body)
+            const user = await User.findByPk(id)
            
-
-            res.send('usuario  ')
+            if(!user){
+                res.send('usuario no encontrado')
+                return
+            }
+            res.send(user )
             
         } catch (error) {
 
             console.log(error)
+            res.send('hubo un error')
+
         }
    }
 
 
-   static  getAllUsers = async (req: Request, res:Response)=>{
-      try {
-            res.json({
-                menssage: 'get All users'
-            })
-      } catch (error) {
-        console.log({error})
-      }
-   }
+
+            static getAllUsers = async (req: Request, res: Response) => {
+                try {
+                const page = parseInt(req.query.page as string) || 1;
+                const pageSize = 10;
+                const offset = (page - 1) * pageSize;
+
+                const users = await User.findAll({
+                    limit: pageSize,
+                    offset: offset,
+                });
+
+                const totalUsers = await User.count();
+
+                res.json({
+                    users,
+                    totalPages: Math.ceil(totalUsers / pageSize),
+                    currentPage: page,
+                    totalUsers,
+                });
+                } catch (error) {
+                console.log({ error });
+                res.status(500).send('Hubo un error');
+                }
+            };
+            
+
+
 
 
     static updateUser = async (req: Request, res: Response)=>{

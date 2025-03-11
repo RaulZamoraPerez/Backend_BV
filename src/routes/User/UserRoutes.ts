@@ -3,7 +3,7 @@ import {Router } from 'express'
 import {body, param} from 'express-validator'
 import { handleInputErrors } from '../../middleware/validation'
 import { UserController } from '../../controllers/User/UserController'
-import { IsEmail } from 'sequelize-typescript'
+
 
 const router = Router()
 
@@ -29,12 +29,8 @@ router.post('/CreateUser',
 
 //obtenr user por id
 router.get('/user/:id',
-
-    param('id')
-       .isNumeric().withMessage('id no valido'),
-    handleInputErrors,
-    
     UserController.getUserById)
+
 
 //obtener todos los usuarios
 router.get('/getAllUsers',
