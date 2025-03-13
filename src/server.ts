@@ -2,9 +2,10 @@ import expres from 'express'
 import dotenv from 'dotenv'
 
 // import { connectDB } from './config/db'
- import AuthRoutes  from './routes/Auth/AuthRoutes'
- import  UserRoutes  from './routes/User/UserRoutes'
+ import AuthAlumnoRoutes  from './routes/AuthAlumno/AuthAlumnoRoutes'
+ import  AlumnoUserRoutes  from './routes/AlumnoUser/AlumnoUserRoutes'
  import  BookRoutes  from './routes/Book/BookRoutes'
+ import  AreaRoutes  from './routes/Area/AreaRouter'
 
 
 dotenv.config()
@@ -19,8 +20,9 @@ app.use(expres.urlencoded({extended: true}))  //habilita el body parser
 
 //routes 
 
-app.use('/api/users', UserRoutes  )
-app.use('/api/auth', AuthRoutes )
+app.use('/api/alumno', AlumnoUserRoutes  )
+app.use('/api/auth/alumnos', AuthAlumnoRoutes)
 app.use('/api/books', BookRoutes )
+app.use('/api/area', AreaRoutes )
 
 export default app
