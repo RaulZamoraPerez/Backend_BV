@@ -14,7 +14,7 @@ const db = new Sequelize(process.env.DATABASE!, process.env.DB_USERNAME!, proces
        acquire:30000,//tiempo antes de marcar un error 
        idle:10000// tiempo que debe de transmitir  para finalizar una conexion a la bd para liberar espacio o recursos
     },
-    // operatorsAliases:false// los aliases era algo que existia en versiones viejas de sequilize y no aseguramos de que no lo use
+
 
     models: [__dirname + '/../mysql/models/**'],//es para que busque los modelos en la carpeta models
     logging: false//es para que no muestre los querys en consola

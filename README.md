@@ -1,8 +1,11 @@
 
 
 # 1. renombrar el template.env  a .env
-# 2. cambiar credenciales DB
-# 3. crear DB  con el nombre de biblioteca_virtual_udea
+# 2. cambiar credenciales DB en el .env
+   
+# 3. crear DB  en tu  con el nombre de 
+   ```  biblioteca_virtual_udea```
+
 # 4. instalar dependecias 
 ``` npm i ```
 # 5.levantar servidor 
@@ -10,7 +13,7 @@
 
 
 
-# MIGRACIONES
+# MIGRACIONES  - cada que hagas cambios en un modelo
 
 # 1.Configuración Inicial
 # Asegúrate de tener un archivo de configuración para Sequelize, generalmente ubicado en config/config.json
