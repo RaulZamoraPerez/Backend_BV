@@ -17,9 +17,9 @@ export class AlumnoController {
        const { matricula, nombre, correo, password, telefono, areaAcademica}=req.body
 
          try{
-                    const existeUsuario = await Alumno.findByPk( matricula)
+                    const [existeUsuario, ExisteUserCorreo]  =  await Promise.allSettled([ Alumno.findByPk( matricula), await Alumno.findOne({where: correo})])
 
-                    if(existeUsuario){
+                    if(existeUsuario || ExisteUserCorreo){
                         res.send('el usuario ya existe')
                         return
                     } 
