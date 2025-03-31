@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
  import  AlumnoUserRoutes  from './routes/AlumnoUser/AlumnoUserRoutes'
  import  BookRoutes  from './routes/Book/BookRoutes'
  import  AreaRoutes  from './routes/Area/AreaRouter'
+ import MatriculaRoutes from './routes/Matricula/MatriculaRouter';
 
 
 dotenv.config()
@@ -24,5 +25,6 @@ app.use('/api/alumno', AlumnoUserRoutes  )
 app.use('/api/auth/alumnos', AuthAlumnoRoutes)
 app.use('/api/books', BookRoutes )
 app.use('/api/area', AreaRoutes )
+app.use('/api/matricula', MatriculaRoutes);
 
 export default app
