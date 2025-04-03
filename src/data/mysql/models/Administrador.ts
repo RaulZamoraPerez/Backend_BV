@@ -3,7 +3,7 @@ import Area from './Area';
 
 @Table({
   tableName: 'administradores',
-  timestamps: true,  
+  timestamps: true,
 })
 class Administrador extends Model {
   @PrimaryKey
@@ -12,12 +12,6 @@ class Administrador extends Model {
 
   @Column(DataType.STRING)
   declare nombre: string;
-
-  @Column(DataType.STRING)
-  declare permisos: string;
-
-  @Column(DataType.DATE)
-  declare fechaRegistro: Date;
 
   @Column(DataType.STRING)
   declare telefono: string;
@@ -41,5 +35,7 @@ class Administrador extends Model {
   @Column(DataType.BOOLEAN)
   declare verificado: boolean;
 }
+
+
 
 export default Administrador;

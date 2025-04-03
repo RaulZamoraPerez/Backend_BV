@@ -1,18 +1,18 @@
-import { Sequelize}  from "sequelize-typescript";
+import { Sequelize } from "sequelize-typescript";
 import dotenv from 'dotenv';
-dotenv.config({path:'.env'})
-const db = new Sequelize(process.env.DATABASE!, process.env.DB_USERNAME!, process.env.DB_PASSWORD ?? '',{
+dotenv.config({ path: '.env' })
+const db = new Sequelize(process.env.DATABASE!, process.env.DB_USERNAME!, process.env.DB_PASSWORD ?? '', {
     host: process.env.BD_HOST,
-    port:3306,
-    dialect:'mysql', 
-    define:{
-        timestamps:true
+    port: 3307,
+    dialect: 'mysql',
+    define: {
+        timestamps: true
     },
-    pool:{
-       max:5,//maximo de conexiones
-       min:0,//minimo de conexxion
-       acquire:30000,//tiempo antes de marcar un error 
-       idle:10000// tiempo que debe de transmitir  para finalizar una conexion a la bd para liberar espacio o recursos
+    pool: {
+        max: 5,//maximo de conexiones
+        min: 0,//minimo de conexxion
+        acquire: 30000,//tiempo antes de marcar un error 
+        idle: 10000// tiempo que debe de transmitir  para finalizar una conexion a la bd para liberar espacio o recursos
     },
 
 
