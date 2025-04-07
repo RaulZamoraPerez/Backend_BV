@@ -9,11 +9,11 @@ const router = Router()
 
 
 
-router.post('/AutenticateUser',
+router.post('/loginAlumno',
 
-    body('Name')
+    body('nombre')
         .notEmpty().withMessage('El nombre del Usuario Obligatorio'),
-    body('email')
+    body('correo')
         .notEmpty().withMessage('El email es Obligatorio'),
     body('password')
         .notEmpty().withMessage('el password es Obligatorio'),

@@ -11,7 +11,7 @@ const port = process.env.PORT || 4000;
 const startServer = async () => {
     try {
       await db.authenticate();
-      db.sync()//generar la tabla creanla sino existe
+      db.sync()//generar la tabla creanla si no existe
       console.log('Connection has been established successfully.');
     } catch (error) {
       console.error('Unable to connect to the database:', error);

@@ -10,10 +10,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-
 const app = expres()
-
-
 
 app.use(expres.json())  //habilita el body parser
 app.use(expres.urlencoded({extended: true}))  //habilita el body parser
