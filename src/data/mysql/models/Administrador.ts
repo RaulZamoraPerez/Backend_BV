@@ -27,13 +27,8 @@ class Administrador extends Model {
   area?: Area;
 
   @Column(DataType.STRING)
-  declare codigoVerificacion: string;
-
-  @Column(DataType.STRING)
   declare rol: string;
 
-  @Column(DataType.BOOLEAN)
-  declare verificado: boolean;
 }
 
 

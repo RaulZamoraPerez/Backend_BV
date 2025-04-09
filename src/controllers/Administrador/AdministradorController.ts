@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
-import RegisterAdminDTO from './dtos/Register-Admin.dto';
+import { RegisterAdminDTO } from './dtos/';
 import { AdminService } from './Administrador.Service';
 import { CustomError } from '../../errors';
+import { LoginAdminDTO } from './dtos/Login-Admin.dto';
+import { stringify } from 'querystring';
 
 
 export class AdministradorController {
@@ -20,55 +22,87 @@ export class AdministradorController {
     }
   }
 
-  //Login y Registro de administradores
-  register = (req: Request, res: Response) => {
+  //Creacion de administradores
+  createAdmin = (req: Request, res: Response) => {
 
     const [error, adminDto] = RegisterAdminDTO.createAdmin(req.body);
 
     if (error) res.status(400).json({ error });
 
     this.adminService
-      .register(adminDto!)
+      .createAdmin(adminDto!)
       .then((admin) => {
-        res.json(admin);
+        res.status(201).json(admin);
       })
       .catch(error => this.handleError(error, res));
 
   }
 
+  updatePasswordAdmins = (req: Request, res: Response) => {
+    this.adminService
+      .updatePasswordAdmins(req.params.email, req.body.password)
+      .then((admin) => {
+        res.status(200).json(admin);
+      })
+      .catch(error => this.handleError(error, res));
+  }
+
+
+  //*Inicio de sesion de administradores
   login = (req: Request, res: Response) => {
-    res.json('login user');
+    const [error, adminDto] = LoginAdminDTO.createAdmin(req.body);
+
+    if (error) res.status(400).json({ error });
+
+    this.adminService
+      .loginAdmin(adminDto!)
+      .then((admin) => {
+        res.status(200).json(admin);
+      })
+      .catch(error => this.handleError(error, res));
 
   }
 
 
-  validateEmail = (req: Request, res: Response) => {
-    res.json('validate email');
-  }
 
 
   //CRUD de administradores
 
-  createAdmin = (req: Request, res: Response) => {
-    res.json('create admin');
-
-  }
-
   getAllAdmins = (req: Request, res: Response) => {
-    res.json('get all users');
+    this.adminService
+      .getAllAdmins()
+      .then((admins) => {
+        res.status(200).json(admins);
+      })
+      .catch(error => this.handleError(error, res));
 
   }
 
-  getAdminById = (req: Request, res: Response) => {
-    res.json('get admin by id');
+  getAdminByEmail = (req: Request, res: Response) => {
+    if (!req.params.email) throw CustomError.badRequest('El correo es obligatorio');
+    this.adminService
+      .getAdminByEmail(req.params.email)
+      .then((admin) => {
+        res.status(200).json(admin);
+      })
+      .catch(error => this.handleError(error, res));
   }
 
-  updateAdmin = (req: Request, res: Response) => {
-    res.json('update admin');
+  updateAdminByEmail = (req: Request, res: Response) => {
+    this.adminService
+      .updateAdminByEmail(req.params.email, req.body)
+      .then((admin) => {
+        res.status(200).json(admin);
+      })
+      .catch(error => this.handleError(error, res));
   }
 
-  deleteAdmin = (req: Request, res: Response) => {
-    res.json('delete admin');
+  deleteAdminByEmail = (req: Request, res: Response) => {
+
+    this.adminService
+      .deleteAdminByEmail(req.params.email)
+      .then(admin => res.status(200).json(admin))
+      .catch(error => this.handleError(error, res));
   }
 
 }

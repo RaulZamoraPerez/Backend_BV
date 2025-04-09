@@ -6,7 +6,7 @@ import AuthAlumnoRoutes from './routes/AuthAlumno/AuthAlumnoRoutes'
 import AlumnoUserRoutes from './routes/AlumnoUser/AlumnoUserRoutes'
 import BookRoutes from './routes/Book/BookRoutes'
 import AreaRoutes from './routes/Area/AreaRouter'
-import AdminstradorRouter from './routes/Administrador/AdminstradorRouter'
+import { AdminRoutes } from './routes/Administrador/AdminstradorRouter';
 
 
 dotenv.config()
@@ -25,6 +25,6 @@ app.use('/api/alumno', AlumnoUserRoutes)
 app.use('/api/auth/alumnos', AuthAlumnoRoutes)
 app.use('/api/books', BookRoutes)
 app.use('/api/area', AreaRoutes)
-app.use('/api/administrador', AdminstradorRouter);
+app.use('/api/administrador', AdminRoutes.routes);
 
 export default app

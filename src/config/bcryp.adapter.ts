@@ -5,7 +5,7 @@ export const bcryptAdapter = {
     const salt = genSaltSync(10);
     return hashSync(password, salt);
   },
-  compare: async (password: string, hashed: string) => {
+  compare: (password: string, hashed: string) => {
     return compareSync(password, hashed);
   },
 };

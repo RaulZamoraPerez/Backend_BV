@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "root",
+    "password": "12345",
+    "database": "biblioteca_virtual_udea",
+    "host": "localhost",
+    "dialect": "mysql",
+    "port": 3307
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "my_database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "my_database_prod",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

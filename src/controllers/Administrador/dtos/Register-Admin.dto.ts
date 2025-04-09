@@ -1,8 +1,8 @@
 
 
-export default class RegisterAdminDTO {
+export class RegisterAdminDTO {
 
-  constructor(
+  private constructor(
     public readonly nombre: string,
     public readonly correo: string,
     public readonly password: string,

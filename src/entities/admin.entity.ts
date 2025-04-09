@@ -10,9 +10,7 @@ export class AdminEntity {
     public telefono: string,
     public password: string,
     public fkIdArea: number,
-    public codigoVerificacion: string,
-    public rol: string,
-    public verificado: boolean,
+    public rol: string
   ) { }
 
   static fromObject(object: { [key: string]: any }) {
@@ -21,10 +19,8 @@ export class AdminEntity {
       nombre,
       telefono,
       password,
-      codigoVerificacion,
-      rol,
-      verificado,
-      fkArea } = object;
+      fkIdArea,
+      rol } = object;
 
 
     if (!nombre) {
@@ -39,20 +35,15 @@ export class AdminEntity {
     if (!password) {
       throw CustomError.badRequest("El password es requerido");
     }
-    if (!codigoVerificacion) {
-      throw CustomError.badRequest("El codigo de verificacion es requerido");
-    }
+
     if (!rol) {
       throw CustomError.badRequest("El rol es requerido");
     }
-    if (!verificado) {
-      throw CustomError.badRequest("El verificado es requerido");
-    }
 
-    if (!fkArea) {
+    if (!fkIdArea) {
       throw CustomError.badRequest("El area es requerida");
     }
 
-    return new AdminEntity(correo, nombre, telefono, password, fkArea, codigoVerificacion, rol, verificado);
+    return new AdminEntity(correo, nombre, telefono, password, fkIdArea, rol);
   }
 }
