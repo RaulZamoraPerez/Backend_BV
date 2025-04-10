@@ -52,7 +52,7 @@ router.post('/CreateUser',
 
 
 //obtenr user por id
-router.get('/:id',
+router.get('/:matricula',
     AlumnoController.getUserByMatricula)
 
 
@@ -62,10 +62,24 @@ router.get('/',
 
 
 //updateUser
-    router.put('/user/:id',
-        param('id')
-       .isNumeric().withMessage('id no valido'),
-    handleInputErrors,
+    router.put('/:matricula',
+      body('nombre')
+      .notEmpty().withMessage('El nombre del Usuario es Obligatorio')
+      .isLength({ max: 50 }).withMessage('El nombre no puede exceder los 50 caracteres'),
+  
+
+    body('correo')
+      .notEmpty().withMessage('El email es Obligatorio')
+      .isEmail().withMessage('Email no válido')
+      .isLength({ max: 255 }).withMessage('El email no puede exceder los 255 caracteres'),
+  
+ 
+    body('password')
+      .notEmpty().withMessage('El password es Obligatorio')
+      .isLength({ min: 6 }).withMessage('El password debe ser mayor a 6 caracteres')
+      .isLength({ max: 255 }).withMessage('El password no puede exceder los 255 caracteres'),
+      handleInputErrors,
+
         AlumnoController.updateUser)
 
        
