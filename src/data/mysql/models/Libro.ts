@@ -20,7 +20,16 @@ class Libro extends Model {
   declare nombreLibro: string;
 
   @Column(DataType.STRING)
-  declare archivoUrl: string; // Nueva columna para guardar la URL del archivo
+  declare descripcion: string;  
+
+  @Column(DataType.STRING)
+  declare autor: string;  
+
+  @Column(DataType.STRING)
+  declare archivoUrl: string;  
+
+  @Column(DataType.STRING)
+  declare portadaUrl: string;  
 
   @ForeignKey(() => Area)
   @Column(DataType.INTEGER)

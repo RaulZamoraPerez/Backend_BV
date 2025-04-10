@@ -1,7 +1,7 @@
 {
     "development": {
       "username": "root",
-      "password": "12345",
+      "password": null,
       "database": "biblioteca_virtual_udea",
       "host": "localhost",
       "dialect": "mysql"

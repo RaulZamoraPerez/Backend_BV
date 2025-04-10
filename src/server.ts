@@ -7,6 +7,7 @@ import dotenv from 'dotenv'
  import  BookRoutes  from './routes/Book/BookRoutes'
  import  AreaRoutes  from './routes/Area/AreaRouter'
 
+ import { errorHandler } from './middleware/errorHandler';
 
 dotenv.config()
 
@@ -24,5 +25,6 @@ app.use('/api/alumno', AlumnoUserRoutes  )
 app.use('/api/auth/alumnos', AuthAlumnoRoutes)
 app.use('/api/books', BookRoutes )
 app.use('/api/area', AreaRoutes )
+app.use(errorHandler);
 
 export default app
