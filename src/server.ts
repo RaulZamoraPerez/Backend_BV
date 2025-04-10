@@ -12,7 +12,6 @@ import BookRoutes from './routes/Book/BookRoutes'
 import AreaRoutes from './routes/Area/AreaRouter'
 import MatriculaRoutes from './routes/Matricula/MatriculaRouter';
 
- import { errorHandler } from './middleware/errorHandler';
 
 dotenv.config()
 
@@ -25,7 +24,12 @@ app.use(expres.urlencoded({ extended: true }))  //habilita el body parser
 
 app.use('/api/alumno', AlumnoUserRoutes)
 app.use('/api/auth/alumnos', AuthAlumnoRoutes)
-app.use('/api/books', BookRoutes )
-app.use('/api/area', AreaRoutes )
+app.use('/api/books', BookRoutes)
+app.use('/api/area', AreaRoutes)
+app.use('/api/matricula', MatriculaRoutes);
+app.use('/api/administrador', AdminRoutes.routes);
+app.use('/api/semestre', SemestreRoutes);
+app.use('/api/materias', MateriaRoutes);
+
 
 export default app

@@ -20,6 +20,5 @@
     "database": "my_database_prod",
     "host": "127.0.0.1",
     "dialect": "mysql"
-
   }
 }
