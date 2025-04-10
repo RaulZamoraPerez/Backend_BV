@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config({ path: '.env' })
 const db = new Sequelize(process.env.DATABASE!, process.env.DB_USERNAME!, process.env.DB_PASSWORD ?? '', {
     host: process.env.BD_HOST,
-    port: 3307,
+    port: Number(process.env.DB_PORT),
     dialect: 'mysql',
     define: {
         timestamps: true

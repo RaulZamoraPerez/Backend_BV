@@ -11,9 +11,9 @@ export class AlumnoController {
       req.body;
 
     try {
-      const [existeUsuario, ExisteUserCorreo] = await Promise.allSettled([
+      const [existeUsuario, ExisteUserCorreo] = await Promise.all([
         Alumno.findByPk(matricula),
-        await Alumno.findOne({ where: correo }),
+        Alumno.findOne({ where: { correo } }),
       ]);
 
       if (existeUsuario || ExisteUserCorreo) {
@@ -44,7 +44,7 @@ export class AlumnoController {
       });
 
       res.send("Se ha enviado un email de confirmacion").status(200);
-      
+
     } catch (error) {
       console.log(error);
       res.send("hubo un error intentalo de nuevo").status(500);
@@ -52,14 +52,22 @@ export class AlumnoController {
   };
 
   static getUserByMatricula = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { matricula } = req.params;
     try {
-      const user = await Alumno.findOne({ where: { matricula: id } });
+      const user = await Alumno.findOne({
+        where: { matricula},
+        attributes: {
+          exclude: ['password', 'codigoVerificacion', 'createdAt', 'updatedAt'],
+        },
+        include:['area']
+      });
 
       if (!user) {
         res.send("usuario no encontrado");
         return;
       }
+
+
       res.send(user).status(200);
     } catch (error) {
       console.log(error);
@@ -76,6 +84,11 @@ export class AlumnoController {
       const users = await Alumno.findAll({
         limit: pageSize,
         offset: offset,
+
+        attributes: {
+          exclude: ['password', 'codigoVerificacion', 'createdAt', 'updatedAt'],
+        },
+        include:['area']
       });
 
       const totalUsers = await Alumno.count();
@@ -93,12 +106,50 @@ export class AlumnoController {
   };
 
   static updateUser = async (req: Request, res: Response) => {
+    const { matricula } = req.params;
+    const { correo, nombre, password } = req.body;
+
     try {
-      res.json({
-        message: "update user",
+      const user = await Alumno.findOne({ where: { matricula } });
+
+      if (!user) {
+         res.status(404).send("Usuario no encontrado");
+          return;
+        }
+
+
+      if (correo) {
+        user.correo = correo;  // Actualizar correo
+      }
+
+      if (nombre) {
+        user.nombre = nombre;  // Actualizar nombre
+      }
+
+      if (password) {
+        // Hashear la nueva contraseña
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        user.password = hashedPassword;  // Actualizar contraseña
+      }
+
+
+      await user.save();
+
+
+      res.status(200).json({
+        message: "Usuario actualizado exitosamente",
+        user: {
+          matricula: user.matricula,
+          nombre: user.nombre,
+          correo: user.correo,
+
+        },
       });
     } catch (error) {
       console.log(error);
+      res.status(500).send("Hubo un error al actualizar el usuario");
     }
   };
+
 }
