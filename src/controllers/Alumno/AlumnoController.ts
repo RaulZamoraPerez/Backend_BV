@@ -106,11 +106,11 @@ export class AlumnoController {
   };
 
   static updateUser = async (req: Request, res: Response) => {
-    const { matricula } = req.params;
-    const { correo, nombre, password } = req.body;
+    const { correo : email } = req.params;
+    const { correo, nombre, telefono } = req.body;
 
     try {
-      const user = await Alumno.findOne({ where: { matricula } });
+      const user = await Alumno.findOne({ where: { correo: email } });
 
       if (!user) {
          res.status(404).send("Usuario no encontrado");
@@ -126,11 +126,9 @@ export class AlumnoController {
         user.nombre = nombre;  // Actualizar nombre
       }
 
-      if (password) {
-        // Hashear la nueva contraseña
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-        user.password = hashedPassword;  // Actualizar contraseña
+      if (telefono) {
+        
+        user.telefono = telefono;  // Actualizar teléfono
       }
 
 
